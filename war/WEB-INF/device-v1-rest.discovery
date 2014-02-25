@@ -1,0 +1,323 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"OqxT57NU1DEATg4yJjzJs2FozZE/V7AQZP5zTLDRsx1Ty3tn1ZUoRYQ\"",
+ "discoveryVersion": "v1",
+ "id": "device:v1",
+ "name": "device",
+ "version": "v1",
+ "description": "This is an API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://xme-backend.appspot.com/_ah/api/device/v1/",
+ "basePath": "/_ah/api/device/v1/",
+ "rootUrl": "https://xme-backend.appspot.com/_ah/api/",
+ "servicePath": "device/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "Device": {
+   "id": "Device",
+   "type": "object",
+   "properties": {
+    "code": {
+     "type": "string"
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "name": {
+     "type": "string"
+    },
+    "owner": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "JsonMap": {
+   "id": "JsonMap",
+   "type": "object"
+  },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "Location": {
+   "id": "Location",
+   "type": "object",
+   "properties": {
+    "altitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "owner": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "Message": {
+   "id": "Message",
+   "type": "object",
+   "properties": {
+    "data": {
+     "$ref": "JsonMap"
+    }
+   }
+  }
+ },
+ "methods": {
+  "register": {
+   "id": "device.register",
+   "path": "register/{token}",
+   "httpMethod": "POST",
+   "parameters": {
+    "token": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "token"
+   ],
+   "request": {
+    "$ref": "Device",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Message"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "subscribe": {
+   "id": "device.subscribe",
+   "path": "subscribe/{id}/{code}",
+   "httpMethod": "POST",
+   "parameters": {
+    "code": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "id",
+    "code"
+   ],
+   "response": {
+    "$ref": "Message"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ },
+ "resources": {
+  "device": {
+   "methods": {
+    "delete": {
+     "id": "device.device.delete",
+     "path": "delete/{token}/{id}",
+     "httpMethod": "DELETE",
+     "parameters": {
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      },
+      "token": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "token",
+      "id"
+     ],
+     "response": {
+      "$ref": "Message"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "list": {
+     "id": "device.device.list",
+     "path": "message/{token}",
+     "httpMethod": "GET",
+     "parameters": {
+      "token": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "token"
+     ],
+     "response": {
+      "$ref": "Message"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
+  "refresh": {
+   "methods": {
+    "activation": {
+     "id": "device.refresh.activation",
+     "path": "refreshActivation/{token}/{id}",
+     "httpMethod": "POST",
+     "parameters": {
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      },
+      "token": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "token",
+      "id"
+     ],
+     "response": {
+      "$ref": "Message"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
+  "update": {
+   "methods": {
+    "location": {
+     "id": "device.update.location",
+     "path": "sendLocation/{id}",
+     "httpMethod": "POST",
+     "parameters": {
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "id"
+     ],
+     "request": {
+      "$ref": "Location",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "Message"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  }
+ }
+}
